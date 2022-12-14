@@ -2,16 +2,8 @@
 Joint Savings Account
 ---------------------
 
-To automate the creation of joint savings accounts, you will create a solidity smart contract that accepts two user addresses that are then able to control a joint savings account. Your smart contract will use ether management functions to implement various requirements from the financial institution to provide the features of the joint savings account.
-
-The Starting file provided for this challenge contains a `pragma` for solidity version `0.5.0`.
-You will do the following:
-
-1. Create and work within a local blockchain development environment using the JavaScript VM provided by the Remix IDE.
-
-2. Script and deploy a **JointSavings** smart contract.
-
-3. Interact with your deployed smart contract to transfer and withdraw funds.
+This is a smart contract that manages a joint savings account between two Ethereum addresses.
+This contract allows the two addresses assigned to it to deposit and withdraw funds.
 
 */
 
@@ -19,74 +11,50 @@ pragma solidity ^0.5.0;
 
 // Define a new contract named `JointSavings`
 contract JointSavings {
-
-    /*
-    Inside the new contract define the following variables:
-    - Two variables of type `address payable` named `accountOne` and `accountTwo`
-    - A variable of type `address public` named `lastToWithdraw`
-    - Two variables of type `uint public` named `lastWithdrawAmount` and `contractBalance`.
-    */
+    // The variables for the addresses that will be sharing the account
     address payable accountOne;
     address payable accountTwo;
+    // Variables that will record information about past transactions
     address public lastToWithdraw;
     uint public lastWithdrawAmount;
+    // The variable that will store the current balance of the savings account
     uint public contractBalance;
 
-    /*
-    Define a function named **withdraw** that will accept two arguments.
-    - A `uint` variable named `amount`
-    - A `payable address` named `recipient`
-    */
+    // Withdraw function
     function withdraw(uint amount, address payable recipient) public {
-
-        /*
-        Define a `require` statement that checks if the `recipient` is equal to either `accountOne` or `accountTwo`. The `requiere` statement returns the text `"You don't own this account!"` if it does not.
-        */
+        // Ensure that only the two account owners can have access to the account
         require(recipient == accountOne || recipient == accountTwo, "You don't own this accouont!");
-
-        /*
-        Define a `require` statement that checks if the `balance` is sufficient to accomplish the withdraw operation. If there are insufficient funds, the text `Insufficient funds!` is returned.
-        */
+        //Ensure that the account has sufficient funds to make the withdrawal
         require(contractBalance >= amount, "Insufficient funds!");
 
-        /*
-        Add and `if` statement to check if the `lastToWithdraw` is not equal to (`!=`) to `recipient` If `lastToWithdraw` is not equal, then set it to the current value of `recipient`.
-        */
+        // Mark the account making the current withdrawal as the last to withdraw
         if (lastToWithdraw != recipient) {
             lastToWithdraw = recipient;
         }
 
-        // Call the `transfer` function of the `recipient` and pass it the `amount` to transfer as an argument.
+        // Transfer the funds to the recipient
         recipient.transfer(amount);
 
-        // Set  `lastWithdrawAmount` equal to `amount`
+        // Set  `lastWithdrawAmount` equal to amount currently being withdrawn
         lastWithdrawAmount = amount;
 
-        // Call the `contractBalance` variable and set it equal to the balance of the contract by using `address(this).balance` to reflect the new balance of the contract.
+        // Update the contract balance to the new balance after the withdrawal
         contractBalance = address(this).balance;
     }
 
-    // Define a `public payable` function named `deposit`.
+    // Deposit function
     function deposit() public payable {
-
-        /*
-        Call the `contractBalance` variable and set it equal to the balance of the contract by using `address(this).balance`.
-        */
+        // Update the contract balance to the new balance after the
         contractBalance = address(this).balance;
     }
 
-    /*
-    Define a `public` function named `setAccounts` that receive two `address payable` arguments named `account1` and `account2`.
-    */
-    function setAccounts(address payable account1, address payable account2) public{
-
-        // Set the values of `accountOne` and `accountTwo` to `account1` and `account2` respectively.
+    // A function that specifies which Ethereum addresses will be the owners of the joint savings account
+    function setAccounts(address payable account1, address payable account2) public {
+        // Assign the account variables to the addresses specified in the function parameters
         accountOne = account1;
         accountTwo = account2;
     }
 
-    /*
-    Finally, add the **default fallback function** so that your contract can store Ether sent from outside the deposit function.
-    */
+    // Fallback function so the contract is able to accept ether without the use of the deposit function
     function() external payable {}
 }
