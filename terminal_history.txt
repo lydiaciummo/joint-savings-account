@@ -1,0 +1,50 @@
+  465  streamlit run app.py
+  466  streamlit run app.py
+  467  streamlit run app.py
+  468  cd ..
+  469  cd ..
+  470  cd module_activities/module_18_activities/01-build_a_blockchain_block/unsolved
+  471  cd module_activities
+  472  cd module_18_activities
+  473  lks
+  474  ls
+  475  cd 01-build_a_blockchain_block
+  476  cd unsolved
+  477  cd 01-build_a_blockchain_bloxk
+  478  cd 01-build_a_blockchain_block
+  479  cd unsolved
+  480  ls
+  481  streamlit run app.py
+  482  conda activate dev
+  483  jupyter lab
+  484  conda deactivate
+  485  conda activate dev
+  486  cd onedrive/boot_camp/challenges/module_18_challenge/blockchain-ledger-app
+  487  streamlit run pychain.py
+  488  conda activate dev
+  489  pip install web3==5.17
+  490  pip install eth-tester==0.5.0b3
+  491  pip install mnemonic
+  492  pip install bip44
+  493  jupyter lab
+  494  jupyter lab --ContentsManager.allow_hidden=True
+  495  conda deactivate
+  496  conda activate dev
+  497  cd onedrive/boot_camp/challenges/module_19_challenge
+  498  conda activate dev
+  499  cd onedrive/boot_camp/challenges/module_19_challenge/fintech-finder
+  500  streamlit run fintech_finder.py
+  501  cd onedrive/boot_camp/challenges/module_20_challenge/joint-savings-account
+  502  git status
+  503  git add joint_savings.sol
+  504  git commit -m"Wrote initial code for the contact"
+  505  git push
+  506  git status
+  507  git add joint_savings.sol
+  508  git commit -m"Updated comments"
+  509  git push
+  510  git status
+  511  git add README.md
+  512  git add execution_results/
+  513  git status
+  514  history 50 > terminal_history.txt
